@@ -1,33 +1,32 @@
+# docker-compose.yml
 services:
   nginx:
     image: nginx:latest
-    container_name: arting2api-nginx
-    restart: unless-stopped
+    container_name: arting-2api-nginx
+    restart: always
     ports:
       - "${NGINX_PORT:-8090}:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
-      - arting2api
+      - app
     networks:
-      - arting2api
-    
-  arting2api:
+      - arting-net
+
+  app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: arting2api
+    container_name: arting-2api-app
     restart: unless-stopped
     environment:
       - API_MASTER_KEY=${API_MASTER_KEY}
       - ARTING_AUTH_TOKEN=${ARTING_AUTH_TOKEN}
       - NGINX_PORT=${NGINX_PORT}
     networks:
-      - arting2api
-      - apinetwork
+      - arting-net
 
 networks:
-  arting2api:
-    name: arting2api
-  apinetwork:
-    name: apinetwork
+  arting-net:
+    driver: bridge
+

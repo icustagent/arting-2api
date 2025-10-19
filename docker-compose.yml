@@ -7,8 +7,9 @@ services:
     restart: unless-stopped
     ports:
       - "8090:8090"
-    env_file:
-      - .env
+    environment:
+      - API_MASTER_KEY=${API_MASTER_KEY}
+      - ARTING_AUTH_TOKEN=${ARTING_AUTH_TOKEN}
     networks:
       - arting2api
 

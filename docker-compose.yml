@@ -1,17 +1,30 @@
 services:
+  nginx:
+    image: nginx:latest
+    container_name: arting2api-nginx
+    restart: unless-stopped
+    ports:
+      - "${NGINX_PORT:-8090}:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - arting2api
+    networks:
+      - arting2api
+    
   arting2api:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: arting2api
     restart: unless-stopped
-    ports:
-      - "8090:8090"
     environment:
       - API_MASTER_KEY=${API_MASTER_KEY}
       - ARTING_AUTH_TOKEN=${ARTING_AUTH_TOKEN}
+      - NGINX_PORT=${NGINX_PORT}
     networks:
       - arting2api
+      - apinetwork
 
 networks:
   arting2api:

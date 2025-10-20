@@ -11,6 +11,7 @@ services:
       - app
     networks:
       - arting2api
+      - apinetwork
 
   app:
     build:
@@ -24,12 +25,14 @@ services:
       - NGINX_PORT=${NGINX_PORT}
     networks:
       - arting2api
+      - apinetwork
 
 networks:
   arting2api:
     name: arting2api
   apinetwork:
     name: apinetwork
+
 
 
 

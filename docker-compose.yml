@@ -24,13 +24,13 @@ services:
       - NGINX_PORT=${NGINX_PORT}
     networks:
       - arting2api
-      - apinetwork
 
 networks:
   arting2api:
     name: arting2api
   apinetwork:
     name: apinetwork
+
 
 
 

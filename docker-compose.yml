@@ -11,6 +11,7 @@ services:
       - app
     networks:
       - arting2api
+      - apinetwork
 
   app:
     build:
@@ -31,3 +32,4 @@ networks:
     name: arting2api
   apinetwork:
     name: apinetwork
+
